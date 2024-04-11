@@ -10,7 +10,6 @@ export const RUNTIME_CONFIG_DOM = "danger-runtime-config";
 
 export const DEFAULT_API_HOST = "https://api.nextchat.dev";
 export const OPENAI_BASE_URL = "https://api.openai.com";
-export const ANTHROPIC_BASE_URL = "https://api.anthropic.com";
 
 export const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/";
 
@@ -26,7 +25,6 @@ export enum Path {
 export enum ApiPath {
   Cors = "",
   OpenAI = "/api/openai",
-  Anthropic = "/api/anthropic",
 }
 
 export enum SlotID {
@@ -69,27 +67,15 @@ export enum ServiceProvider {
   OpenAI = "OpenAI",
   Azure = "Azure",
   Google = "Google",
-  Anthropic = "Anthropic",
 }
 
 export enum ModelProvider {
   GPT = "GPT",
   GeminiPro = "GeminiPro",
-  Claude = "Claude",
 }
-
-export const Anthropic = {
-  ChatPath: "v1/messages",
-  ChatPath1: "v1/complete",
-  ExampleEndpoint: "https://api.anthropic.com",
-  Vision: "2023-06-01",
-};
 
 export const OpenaiPath = {
   ChatPath: "v1/chat/completions",
-  createImgPath: "v1/images/generations",
-  createEditPath: "v1/images/edits",
-  createVariationionsPath: "v1/images/variations",
   UsagePath: "dashboard/billing/usage",
   SubsPath: "dashboard/billing/subscription",
   ListModelPath: "v1/models",
@@ -101,27 +87,19 @@ export const Azure = {
 
 export const Google = {
   ExampleEndpoint: "https://generativelanguage.googleapis.com/",
-  ChatPath: "v1beta/models/gemini-pro:generateContent",
+  ChatPath: "v1beta/models/gemini-1.5-pro-latest:generateContent",
   VisionChatPath: "v1beta/models/gemini-pro-vision:generateContent",
 
   // /api/openai/v1/chat/completions
 };
 
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
-// export const DEFAULT_SYSTEM_TEMPLATE = `
-// You are ChatGPT, a large language model trained by {{ServiceProvider}}.
-// Knowledge cutoff: {{cutoff}}
-// Current model: {{model}}
-// Current time: {{time}}
-// Latex inline: $x^2$
-// Latex block: $$e=mc^2$$
-// `;
 export const DEFAULT_SYSTEM_TEMPLATE = `
 You are ChatGPT, a large language model trained by {{ServiceProvider}}.
 Knowledge cutoff: {{cutoff}}
 Current model: {{model}}
 Current time: {{time}}
-Latex inline: \\(x^2\\) 
+Latex inline: $x^2$ 
 Latex block: $$e=mc^2$$
 `;
 
@@ -130,7 +108,6 @@ export const GEMINI_SUMMARIZE_MODEL = "gemini-pro";
 
 export const KnowledgeCutOffDate: Record<string, string> = {
   default: "2021-09",
-  "gpt-4-turbo": "2023-12",
   "gpt-4-turbo-preview": "2023-12",
   "gpt-4-1106-preview": "2023-04",
   "gpt-4-0125-preview": "2023-12",
@@ -141,6 +118,15 @@ export const KnowledgeCutOffDate: Record<string, string> = {
 };
 
 export const DEFAULT_MODELS = [
+  {
+    name: "gemini-1.5-pro",
+    available: true,
+    provider: {
+      id: "google",
+      providerName: "Google",
+      providerType: "google",
+    },
+  },
   {
     name: "gpt-4",
     available: true,
@@ -196,24 +182,6 @@ export const DEFAULT_MODELS = [
     },
   },
   {
-    name: "gpt-4-turbo",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "gpt-4-turbo-2024-04-09",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
     name: "gpt-4-turbo-preview",
     available: true,
     provider: {
@@ -222,6 +190,16 @@ export const DEFAULT_MODELS = [
       providerType: "openai",
     },
   },
+  {
+    name: "gpt-4-turbo",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+
   {
     name: "gpt-4-1106-preview",
     available: true,
@@ -242,24 +220,6 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "gpt-4-vision-preview",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "dall-e-2",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "dall-e-3",
     available: true,
     provider: {
       id: "openai",
@@ -331,7 +291,7 @@ export const DEFAULT_MODELS = [
     },
   },
   {
-    name: "gemini-pro",
+    name: "gemini-1.5-pro",
     available: true,
     provider: {
       id: "google",
@@ -348,73 +308,7 @@ export const DEFAULT_MODELS = [
       providerType: "google",
     },
   },
-  {
-    name: "claude-instant-1.2",
-    available: true,
-    provider: {
-      id: "anthropic",
-      providerName: "Anthropic",
-      providerType: "anthropic",
-    },
-  },
-  {
-    name: "claude-2.0",
-    available: true,
-    provider: {
-      id: "anthropic",
-      providerName: "Anthropic",
-      providerType: "anthropic",
-    },
-  },
-  {
-    name: "claude-2.1",
-    available: true,
-    provider: {
-      id: "anthropic",
-      providerName: "Anthropic",
-      providerType: "anthropic",
-    },
-  },
-  {
-    name: "claude-3-opus-20240229",
-    available: true,
-    provider: {
-      id: "anthropic",
-      providerName: "Anthropic",
-      providerType: "anthropic",
-    },
-  },
-  {
-    name: "claude-3-sonnet-20240229",
-    available: true,
-    provider: {
-      id: "anthropic",
-      providerName: "Anthropic",
-      providerType: "anthropic",
-    },
-  },
-  {
-    name: "claude-3-haiku-20240307",
-    available: true,
-    provider: {
-      id: "anthropic",
-      providerName: "Anthropic",
-      providerType: "anthropic",
-    },
-  },
 ] as const;
 
 export const CHAT_PAGE_SIZE = 15;
 export const MAX_RENDER_MSG_COUNT = 45;
-
-// some famous webdav endpoints
-export const internalWhiteWebDavEndpoints = [
-  "https://dav.jianguoyun.com/dav/",
-  "https://dav.dropdav.com/",
-  "https://dav.box.com/dav",
-  "https://nanao.teracloud.jp/dav/",
-  "https://webdav.4shared.com/",
-  "https://dav.idrivesync.com",
-  "https://webdav.yandex.com",
-  "https://app.koofr.net/dav/Koofr",
-];
