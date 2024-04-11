@@ -25,6 +25,7 @@ export enum Path {
 export enum ApiPath {
   Cors = "",
   OpenAI = "/api/openai",
+  Anthropic = "/api/anthropic",
 }
 
 export enum SlotID {
@@ -67,15 +68,27 @@ export enum ServiceProvider {
   OpenAI = "OpenAI",
   Azure = "Azure",
   Google = "Google",
+  Anthropic = "Anthropic",
 }
 
 export enum ModelProvider {
   GPT = "GPT",
   GeminiPro = "GeminiPro",
+  Claude = "Claude",
 }
+
+export const Anthropic = {
+  ChatPath: "v1/messages",
+  ChatPath1: "v1/complete",
+  ExampleEndpoint: "https://api.anthropic.com",
+  Vision: "2023-06-01",
+};
 
 export const OpenaiPath = {
   ChatPath: "v1/chat/completions",
+  createImgPath: "v1/images/generations",
+  createEditPath: "v1/images/edits",
+  createVariationionsPath: "v1/images/variations",
   UsagePath: "dashboard/billing/usage",
   SubsPath: "dashboard/billing/subscription",
   ListModelPath: "v1/models",
@@ -237,6 +250,24 @@ export const DEFAULT_MODELS = [
     },
   },
   {
+    name: "dall-e-2",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "dall-e-3",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
     name: "gpt-3.5-turbo-0125",
     available: true,
     provider: {
@@ -308,7 +339,73 @@ export const DEFAULT_MODELS = [
       providerType: "google",
     },
   },
+  {
+    name: "claude-instant-1.2",
+    available: true,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-2.0",
+    available: true,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-2.1",
+    available: true,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-3-opus-20240229",
+    available: true,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-3-sonnet-20240229",
+    available: true,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-3-haiku-20240307",
+    available: true,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
 ] as const;
 
 export const CHAT_PAGE_SIZE = 15;
 export const MAX_RENDER_MSG_COUNT = 45;
+
+// some famous webdav endpoints
+export const internalWhiteWebDavEndpoints = [
+  "https://dav.jianguoyun.com/dav/",
+  "https://dav.dropdav.com/",
+  "https://dav.box.com/dav",
+  "https://nanao.teracloud.jp/dav/",
+  "https://webdav.4shared.com/",
+  "https://dav.idrivesync.com",
+  "https://webdav.yandex.com",
+  "https://app.koofr.net/dav/Koofr",
+];
